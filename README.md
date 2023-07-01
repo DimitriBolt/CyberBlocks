@@ -1,2 +1,2 @@
 # CyberBlocks
-Cyberblocks platform
+Cyber-blocks platform
