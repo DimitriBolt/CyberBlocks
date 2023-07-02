@@ -18,6 +18,17 @@ Object[] elementData
 size()
 }
 
+interface PenetrationTest{
+-penetrationTestResult
++conductPenetrationTest()
++getResult()
+}
+
+class InternalPenetrationTest{
+}
+
+InternalPenetrationTest ..|> PenetrationTest
+
 enum TimeUnit {
 DAYS
 HOURS
