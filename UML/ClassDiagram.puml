@@ -1,13 +1,54 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class PenetrationTest{
--penetrationTestResult: JsonObject
-'конструктор с Большой буквы без типа, в диаграмме классов нет смысла указывать
-+conductPenetrationTest(): JsonObject
-+getPenetrationTestResult(): JsonObject
+class FBPostVerification {
+- signature: byte[]
+- dateOfSignature: date
+- location: GPS_coordinates}
++ getSignature(filePath, DB, FB_post: screenshot: JPG): byte[]
++ getDate(filePath, DB, FB_post: screenshot: JPG): byte[]
++ getLocation(filePath, DB, FB_post: screenshot: JPG): byte[]
 }
 
+class AggregateSignature{
+- signature: byte[]
++ AggregateSignature(FBPostVerification)
+}
+AggregateSignature::AggregateSignature ..> FBPostVerification
+
+class AllSignaturesAtSomeDate{
+- allSignaturesAtSomeDate: ListOfString
+- appendAggregateSignature(AggregateSignature)
+- saveToFile(allSignaturesAtSomeDate): File
+}
+
+File File {
+}
+
+File <.. AllSignaturesAtSomeDate
+
+class Signature{
+- Signature: byte[]
+- calculateSignature(File)
+- putToBlockChain(Signature, Ethereum)
+}
+
+Signature::calculateSignature <.. File
+
+AllSignaturesAtSomeDate::appendAggregateSignature ..> AggregateSignature
+
+/'
+class FB_post{
+- post: String
++ getPost(screenshot: JPG)
+}
+
+' FBPostVerification::getSignature ..> FB_post
+
+
+abstract class PenetrationTest{
+'конструктор с Большой буквы без типа, в диаграмме классов нет смысла указывать
+}
 class InternalPenetrationTest{
 }
 class OutsidePenetrationTest{
@@ -21,7 +62,6 @@ class ItSystemInventory{
 - BrowserInformation
 - BrowsingBehavior
 }
-
 class CyberPolicyOptions
 class Insuree
 class Insurer
@@ -38,5 +78,6 @@ class Metadata {
 PenetrationTest <|-- InternalPenetrationTest
 PenetrationTest <|-- OutsidePenetrationTest
 ' Наследование (абстрактный класс наследуется)
+'/
 
 @enduml
