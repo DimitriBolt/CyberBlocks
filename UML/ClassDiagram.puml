@@ -1,7 +1,17 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class FBPostVerification {
+
+file FBPost.jpg{
+}
+
+class Storage{
+- listOfFiles: file
++ saveToStorage(FBPost.jpg)
+}
+Storage::saveToStorage ..> FBPost.jpg
+
+class PostVerification {
 ' Атрибуты
 - signature: byte[]
 - dateOfSignature: date
@@ -15,24 +25,26 @@ class FBPostVerification {
 + getOwner(file, DataBase, screenshot: JPG): String
 }
 
+PostVerification ..> FBPost.jpg
+
 class AggregateSignature{
 - signature: byte[]
 - user
 + AggregateSignature(FBPostVerification)
 }
-AggregateSignature::AggregateSignature ..> FBPostVerification
-AggregateSignature::user ..> FBPostVerification::user
+AggregateSignature::AggregateSignature ..> PostVerification
+AggregateSignature::user ..> PostVerification::user
 
 class AllSignaturesAtSomeDate{
 - allSignaturesAtSomeDate: ListOfString
 - appendAggregateSignature(AggregateSignature)
-- saveToFile(allSignaturesAtSomeDate): File
+- saveToFile(allSignaturesAtSomeDate): AllSignaturesAtFile.txt
 }
 
-File File {
+file AllSignaturesAtFile.txt {
 }
 
-File <.. AllSignaturesAtSomeDate
+AllSignaturesAtFile.txt <.. AllSignaturesAtSomeDate
 
 class Signature{
 - Signature: byte[]
@@ -54,9 +66,21 @@ class Rules{
 + typeOfBlockChain
 }
 
+file BlockChain {
+' List of Blockchains
+}
 
-Signature::calculateSignature <.. File
+
+
+Signature::putToBlockChain --> BlockChain
+
+Signature::calculateSignature <.. AllSignaturesAtFile.txt
 
 AllSignaturesAtSomeDate::appendAggregateSignature ..> AggregateSignature
+
+class GetCheckSum{
+getCheckSum(BlockChain)
+}
+GetCheckSum::getCheckSum ..> BlockChain
 
 @enduml
