@@ -2,19 +2,26 @@
 'https://plantuml.com/class-diagram
 
 class FBPostVerification {
+' Атрибуты
 - signature: byte[]
 - dateOfSignature: date
-- location: GPS_coordinates}
-+ getSignature(filePath, DB, FB_post: screenshot: JPG): byte[]
-+ getDate(filePath, DB, FB_post: screenshot: JPG): byte[]
-+ getLocation(filePath, DB, FB_post: screenshot: JPG): byte[]
+- location: GPS_coordinates
+- uniformResourceIdentifier: String
+- user: String
+' Методы:
++ getSignature(file, DataBase, screenshot: JPG): byte[]
++ getDate(file, DataBase, screenshot: JPG): byte[]
++ getLocation(file, DataBase, screenshot: JPG): byte[]
++ getOwner(file, DataBase, screenshot: JPG): String
 }
 
 class AggregateSignature{
 - signature: byte[]
+- user
 + AggregateSignature(FBPostVerification)
 }
 AggregateSignature::AggregateSignature ..> FBPostVerification
+AggregateSignature::user ..> FBPostVerification::user
 
 class AllSignaturesAtSomeDate{
 - allSignaturesAtSomeDate: ListOfString
@@ -30,54 +37,26 @@ File <.. AllSignaturesAtSomeDate
 class Signature{
 - Signature: byte[]
 - calculateSignature(File)
-- putToBlockChain(Signature, Ethereum)
+- putToBlockChain(Signature)
 }
+
+class PlanerOfPutInBlockChain{
++ bySchedule(Signature, Rules)
++ byDemand(Signature, Rules, payment)
+}
+PlanerOfPutInBlockChain::bySchedule <.. Rules
+PlanerOfPutInBlockChain::bySchedule <.. Signature
+
+class Rules{
++ rules1
++ rules2
++ AccessLevels
++ typeOfBlockChain
+}
+
 
 Signature::calculateSignature <.. File
 
 AllSignaturesAtSomeDate::appendAggregateSignature ..> AggregateSignature
-
-/'
-class FB_post{
-- post: String
-+ getPost(screenshot: JPG)
-}
-
-' FBPostVerification::getSignature ..> FB_post
-
-
-abstract class PenetrationTest{
-'конструктор с Большой буквы без типа, в диаграмме классов нет смысла указывать
-}
-class InternalPenetrationTest{
-}
-class OutsidePenetrationTest{
-}
-class ItSystemInventory{
-- DesktopOS
-- MobileOS
-- OtherOS
-- HardwareInformation
-- SoftwareInformation
-- BrowserInformation
-- BrowsingBehavior
-}
-class CyberPolicyOptions
-class Insuree
-class Insurer
-class Keys
-class Metadata {
-- sameVariable: HashSet<String>
-}
-
-
-
-
-
-
-PenetrationTest <|-- InternalPenetrationTest
-PenetrationTest <|-- OutsidePenetrationTest
-' Наследование (абстрактный класс наследуется)
-'/
 
 @enduml
