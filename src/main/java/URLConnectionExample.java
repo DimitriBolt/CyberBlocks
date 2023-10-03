@@ -1,8 +1,13 @@
-package src;
 // Ниже приведен пример применения класса URLConnection
 
-import java.net.*;
-import java.io.*;
+//import com.aspose.pdf.Document;
+//import com.aspose.pdf.HtmlLoadOptions;
+//import com.aspose.pdf.PdfSaveOptions;
+
+import javax.swing.text.html.HTMLDocument;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 
 public class URLConnectionExample {
@@ -53,6 +58,27 @@ public class URLConnectionExample {
         } else {
             System.out.println("Содержимое недоступно.");
         }
+
+        // Create and initialize URL
+        URL oracleURL = new URL("https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html");
+
+        // Get web page as input stream
+        InputStream is = oracleURL.openStream();
+
+        // Initialize HTML load options
+        //HtmlLoadOptions htmloptions = new HtmlLoadOptions();
+
+        // Load stream into Document object
+        //Document pdfDocument = new Document(is, htmloptions);
+
+        // Save output as PDF format
+        //pdfDocument.save("HTML-to-PDF.pdf");
+
+
+
+
+
     }
+
 
 }
