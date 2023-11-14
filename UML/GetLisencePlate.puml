@@ -1,0 +1,86 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+
+title Варианты действий по получению License plate.
+<style>
+    ' scope to sequenceDiagram elements
+    activityDiagram {
+        ' define a new style, using CSS class syntax
+        .myStyle {
+            FontColor Blue
+            FontSize 1
+            BackgroundColor white
+            LineColor transparent
+            arrow {
+                FontColor gold
+                FontName arial
+                FontSize 15
+                LineColor white
+        }
+    }
+</style>
+
+|#pink|SelfOnStreet|Чиню Сам на улице
+split
+    -[hidden]->
+    :Посмотреть и прочитать то,
+     что прислал Пётр;
+     :Посмотреть, как это выглядит
+      на самом деле;
+      :понять, что нужно докупить
+       и докупить детальки;
+       :разобрать всё
+       вставить нужные детальки
+       и собрать обратно;
+
+
+|#AntiqueWhite|FindPlace| Найти площадку\n и там чинить самому
+split again
+    -[hidden]->
+    :Найти площадку
+     для ремонта;
+     end
+
+|Merge| Общие итоговые\n действия
+
+split again
+    -[hidden]->
+    :dfg; <<myStyle>>
+    -[hidden]->
+
+|#lightblue|self-diagnosis| Само диагностика\n ремонт в сервисе
+split again
+    -[hidden]->
+    :Посмотреть и прочитать то,
+     что прислал Пётр;
+     :Посмотреть, как это выглядит
+     на самом деле;
+     :Написать-сформулировать
+      задание для сервиса;
+      :найти сервис
+       и сдать туда машину;
+|Merge|
+         :asdfgh; <<myStyle>>
+
+|#palegreen|Full payment| Ремонт\n и Полная оплата\n в сервисе
+split again
+    -[hidden]->
+    :Получить гарантию
+     продажи полочек;
+     :Позвонить-написать
+     в сервисы
+     и спросить,
+     сколько это будет стоить;
+     :Выбрать автосервис
+     и сдать туда машину;
+     #transparent:_; <<myStyle>>
+|Merge|
+    #transparent:<color:red><size:1>qwerty</size></color>; <<myStyle>>
+
+end split
+
+:Записаться в MVD;
+:Получить номера;
+stop
+@enduml
