@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+|Дорожка1|
+title Схема последствий Волшебного Пендаля
+start
+note left
+    Отрываем попу от стула
+end note
+fork
+    :Поднимаемся;
+fork again
+    |#AntiqueWhite|Дорожка2|
+    :Идем в туалет;
+    :Справляем нужду;
+    :Идем обратно;
+    :Садимся;
+|Дорожка1|
+end fork
+
+
+:ClickServlet.handleRequest();
+:new page;
+if (Page.onSecurityCheck) then (true)
+  :Page.onInit();
+  if (isForward?) then (no)
+    :Process controls;
+    if (continue processing?) then (no)
+      stop
+    endif
+
+    if (isPost?) then (yes)
+      :Page.onPost();
+    else (no)
+      :Page.onGet();
+    endif
+    :Page.onRender();
+  endif
+else (false)
+endif
+
+if (do redirect?) then (yes)
+  :redirect process;
+else
+  if (do forward?) then (yes)
+    :Forward request;
+  else (no)
+    :Render page template;
+  endif
+endif
+
+stop
+note right
+  Итого:
+    <img:https://media.licdn.com/dms/image/D4D12AQHlle36SGEZvg/article-cover_image-shrink_423_752/0/1685532146157?e=1705536000&v=beta&t=39TeHIcxtMoiNKXUk954K33FOPbyjuMzP_igKO8JwxQ{scale=0.5}>
+end note
+
+@enduml
