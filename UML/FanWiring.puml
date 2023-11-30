@@ -1,0 +1,12 @@
+@startgantt
+'https://plantuml.com/gantt-diagram
+title План работ по установке электропроводки в автомобиле
+'Project starts 2023-10-30
+[Снять видео о том, как проложена текущая проводка] requires 1 days
+then [Открутить водительский резистор] requires 1 days
+then [Открутить реле] requires 1 days
+then [аккуратно открывать серенькую крышку] requires 1 days
+
+
+
+@endgantt
